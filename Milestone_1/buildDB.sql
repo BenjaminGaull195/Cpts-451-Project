@@ -50,7 +50,11 @@ CREATE TABLE Business(
 
 --Create Friends Relationship
 CREATE TABLE Friends(
-
+    userID1 INT NOT NULL,
+    userID2 INT NOT NULL,
+    CONSTRAINT pk_Friends PRIMARY KEY(userID1, userID2),
+    CONSTRAINT fk_Friend1 FOREIGN KEY(userID1) REFERENCES User(userID),
+    CONSTRAINT fk_Friend2 FOREIGN KEY(userID2) REFERENCES User(userID), 
 );
 
 --Create Makes_Tips Relationship
@@ -60,7 +64,7 @@ CREATE TABLE Makes_Tips(
 
 --Creates Tips_About Relationship
 CREATE TABLE Tips_About(
-
+    
 );
 
 --Creates Checkin Relationship
