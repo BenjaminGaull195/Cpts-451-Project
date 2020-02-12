@@ -25,12 +25,17 @@ CREATE TABLE User(
 --Create Tips
 CREATE TABLE Tips(
     --Not certain for Primary key
+    tBusinessID INT NOT NULL,
+    tUserID INT NOT NULL,
+    --May change primary key later
 
     tNum_Likes INT,
     tPosted_Date DATE,
     tPosted_Time TIME,
     tText TEXT,
-    CONSTRAINT pk_Tips PRIMARY KEY()
+    CONSTRAINT pk_Tips PRIMARY KEY(tUserID, tBusinessID),
+    CONSTRAINT fk_User FOREIGN KEY(tUserID) REFERENCES User(userID),
+    CONSTRAINT fk_Business FOREIGN KEY(tBusinessID) REFERENCES Business(businessID)
 );
 
 --Create Business
@@ -59,22 +64,38 @@ CREATE TABLE Friends(
 
 --Create Makes_Tips Relationship
 CREATE TABLE Makes_Tips(
-
+    mUserID INT NOT NULL,
+    mBusinessID INT NOT NULL,
+    CONSTRAINT pk_Makes_Tips PRIMARY KEY(mUserID, mBusinessID),
+    CONSTRAINT fk_mUser FOREIGN KEY(mUserID) REFERENCES User(userID),
+    CONSTRAINT fk_mBusiness FOREIGN KEY(mBusinessID) REFERENCES Business(businessID)
 );
 
 --Creates Tips_About Relationship
 CREATE TABLE Tips_About(
-    
+    aUserID INT NOT NULL,
+    aBusinessID INT NOT NULL,
+    CONSTRAINT pk_Tipes_About PRIMARY KEY(aUserID, aBusinessID),
+    CONSTRAINT fk_aUser FOREIGN KEY(aUserID) REFERENCES User(userID),
+    CONSTRAINT fk_aBusiness FOREIGN KEY(aBusinessID) REFERENCES Business(businessID)
 );
 
 --Creates Checkin Relationship
 CREATE TABLE Checkin(
-
+    cBusinessID INT NOT NULL,
+    cDate DATE NOT NULL,
+    cTime TIME NOT NULL,
+    CONSTRAINT pk_Checkin PRIMARY KEY(cBusinessID, cDate, cTime),
+    CONSTRAINT fk_Checkin FOREIGN KEY(cBusinessID) REFERENCES Business(businessID)
 );
 
 --Create Hours Weak Relation
 CREATE TABLE Hours_Open(
-
+    hBusinessID INT NOT NULL,
+    hDay VARCHAR(10),
+    hHours VARCHAR(20),
+    CONSTRAINT pk_Hours PRIMARY KEY(hBusinessID, hDay),
+    CONSTRAINT fk_Hours FOREIGN KEY(hBusinessID) REFERENCES Business(businessID)
 );
 
 
