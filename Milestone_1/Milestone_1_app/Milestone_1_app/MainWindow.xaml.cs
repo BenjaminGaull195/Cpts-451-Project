@@ -38,7 +38,7 @@ namespace Milestone_1_app
 
         private string buildConnectionString()
         {
-            return "Host = localhost; Username = postgres; Database = milestone1db; Password = ";
+            return "Host = localhost; Username = postgres; Database = milestone1; Password = Spartan-195";
         }
 
         private void addState()
