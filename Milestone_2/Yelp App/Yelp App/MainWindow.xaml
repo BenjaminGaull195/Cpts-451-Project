@@ -1,0 +1,48 @@
+﻿<Window x:Class="Yelp_App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Yelp_App"
+        mc:Ignorable="d"
+        Title="Yelp App" Height="1000" Width="1700">
+    <Grid>
+        <TabControl HorizontalAlignment="Left" Height="969" VerticalAlignment="Top" Width="1692">
+            <TabItem Header="User Information" Width="125">
+                <Grid Background="#FFE5E5E5" Margin="0,-2,0,2">
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="300" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="500"/>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="280" Margin="20,20,0,0" Stroke="Black" VerticalAlignment="Top" Width="214"/>
+                    <Label Content="Current User:" HorizontalAlignment="Left" Height="30" Margin="30,20,0,0" VerticalAlignment="Top" Width="195"/>
+                    <TextBox x:Name="User_Search" HorizontalAlignment="Left" Height="20" Margin="30,50,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="195" TextChanged="User_Search_Updated"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Business Search" Width="125">
+                <Grid Background="#FFE5E5E5" Margin="0,-3,0,3">
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="370" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="275"/>
+                    <Label Content="Select Location" HorizontalAlignment="Left" Height="30" Margin="10,10,0,0" VerticalAlignment="Top" Width="104" FontWeight="Bold"/>
+                    <Label Content="State:" HorizontalAlignment="Left" Height="30" Margin="20,30,0,0" VerticalAlignment="Top" Width="49"/>
+                    <ComboBox x:Name="State_Select" HorizontalAlignment="Left" Height="20" Margin="70,35,0,0" VerticalAlignment="Top" Width="143" SelectionChanged="State_Selected"/>
+                    <Label Content="City" HorizontalAlignment="Left" Height="30" Margin="20,60,0,0" VerticalAlignment="Top" Width="100"/>
+                    <ListBox x:Name="City_List" HorizontalAlignment="Left" Height="125" Margin="20,85,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="City_Selected"/>
+                    <Label Content="Zipcode" HorizontalAlignment="Left" Height="30" Margin="20,215,0,0" VerticalAlignment="Top" Width="100"/>
+                    <ListBox x:Name="Zipcode_List" HorizontalAlignment="Left" Height="125" Margin="20,240,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="Zipcode_Selected"/>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="546" Margin="10,385,0,0" Stroke="Black" VerticalAlignment="Top" Width="275"/>
+                    <Label Content="Business Categories:" HorizontalAlignment="Left" Height="30" Margin="20,390,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold"/>
+                    <ListBox x:Name="Category_List" HorizontalAlignment="Left" Height="296" Margin="20,420,0,0" VerticalAlignment="Top" Width="250"/>
+                    <Button x:Name="Business_Search" Content="Search Businesses" HorizontalAlignment="Left" Height="24" Margin="20,896,0,0" VerticalAlignment="Top" Width="250" FontWeight="Bold"/>
+                    <ListBox x:Name="Selected_Categories_List" HorizontalAlignment="Left" Height="140" Margin="20,751,0,0" VerticalAlignment="Top" Width="250"/>
+                    <Button x:Name="Category_Add" Content="Add" HorizontalAlignment="Left" Height="25" Margin="20,721,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Button x:Name="Category_Remove" Content="Remove" HorizontalAlignment="Left" Height="25" Margin="150,721,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="569" Margin="290,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="1386"/>
+                    <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="347" Margin="290,584,0,0" Stroke="Black" VerticalAlignment="Top" Width="1386"/>
+                    <Label Content="Search Results:" HorizontalAlignment="Left" Height="31" Margin="290,12,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold"/>
+                    <Label Content="Selected Business:" HorizontalAlignment="Left" Height="40" Margin="290,584,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold"/>
+                    <DataGrid x:Name="Business_List" HorizontalAlignment="Left" Height="526" Margin="300,43,0,0" VerticalAlignment="Top" Width="1360" RenderTransformOrigin="0.239,0.216" SelectionChanged="Business_Selected"/>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
