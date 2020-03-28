@@ -105,11 +105,11 @@ def insert2CheckinTable():
                 sql_str = ("INSERT INTO Checkin (cBusinessID, cDate, cTime)\n"
                            + "VALUES ('"
                            + cleanStr4SQL(data['business_id'])
-                           + "',"
+                           + "','"
                            + str(date.split(" ")[0].lstrip("'").rstrip("'"))
-                           + ","
+                           + "','"
                            + str(date.split(" ")[1].lstrip("'").rstrip("'"))
-                           + ");")
+                           + "');")
 
                 outfile.write(sql_str)
                 outfile.write("\n\n")
@@ -281,11 +281,11 @@ def insert2TipTable():
                        + cleanStr4SQL(data['business_id'])
                        + "','"
                        + cleanStr4SQL(data["user_id"])
-                       + "', 0,"
+                       + "', 0, '"
                        + data["date"].split(" ")[0].lstrip("'").rstrip("'")
-                       + ","
+                       + " "
                        + data["date"].split(" ")[1].lstrip("'").rstrip("'")
-                       + ",'"
+                       + "', '"
                        + cleanStr4SQL(data["text"])
                        + "'"
                        + ");")
@@ -358,11 +358,11 @@ def insert2UserTable():
                        + str(0.0)
                        + ","
                        + str(0.0)
-                       + ","
+                       + ",'"
                        + cleanStr4SQL(data["yelping_since"].split(" ")[0])
-                       + ","
+                       + "','"
                        + cleanStr4SQL(data["yelping_since"].split(" ")[1])
-                       + ");")
+                       + "');")
 
             outfile.write(sql_str)
             outfile.write("\n\n")
