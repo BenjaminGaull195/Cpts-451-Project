@@ -1,0 +1,1 @@
+sudo -u postgres psql -d milestone2 -bq -f ../Team-29_DROP_TABLES.sql

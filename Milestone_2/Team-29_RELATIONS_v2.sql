@@ -26,7 +26,7 @@ CREATE TABLE Business(
     businessID VARCHAR NOT NULL,
     bName VARCHAR(100),
     --Address
-    bStreet VARCHAR(40),
+    bStreet VARCHAR(100),
     bCity VARCHAR(20),
     bState CHAR(2),
     bPostal_Code INT,
@@ -63,7 +63,7 @@ CREATE TABLE Friends(
     userID2 VARCHAR NOT NULL,
     CONSTRAINT pk_Friends PRIMARY KEY(userID1, userID2),
     CONSTRAINT fk_Friend1 FOREIGN KEY(userID1) REFERENCES yelpUser(userID),
-    CONSTRAINT fk_Friend2 FOREIGN KEY(userID2) REFERENCES yelpUser(userID), 
+    CONSTRAINT fk_Friend2 FOREIGN KEY(userID2) REFERENCES yelpUser(userID)
 );
 
 --Create Makes_Tips Relationship
@@ -101,7 +101,3 @@ CREATE TABLE Hours_Open(
     CONSTRAINT pk_Hours PRIMARY KEY(hBusinessID, hDay),
     CONSTRAINT fk_Hours FOREIGN KEY(hBusinessID) REFERENCES Business(businessID)
 );
-
-
-
-

@@ -230,7 +230,7 @@ def insert2Makes_TipsTable():
 
             # Generate the INSERT statement for the cussent business
             # include values for all businessTable attributes
-            sql_str = ("INSERT INTO Hours_Open (mUserID, mBusinessID)\n"
+            sql_str = ("INSERT INTO Makes_Tips (mUserID, mBusinessID)\n"
                        + "VALUES ('"
                        + cleanStr4SQL(data["user_id"])
                        + "','"
@@ -276,12 +276,14 @@ def insert2TipTable():
 
             # Generate the INSERT statement for the cussent business
             # include values for all businessTable attributes
-            sql_str = ("INSERT INTO Tips (tBusinessID, tUserID, tNum_Likes, tPosted_Date, tPosted_Time, tText)\n"
+            sql_str = ("INSERT INTO Tips (tBusinessID, tUserID, tNum_Likes, tPosted_Datetime, tText)\n"
                        + "VALUES ('"
                        + cleanStr4SQL(data['business_id'])
                        + "','"
                        + cleanStr4SQL(data["user_id"])
-                       + "', 0, '"
+                       + "',"
+                       + str(data["likes"])
+                       + " ,'"
                        + data["date"].split(" ")[0].lstrip("'").rstrip("'")
                        + " "
                        + data["date"].split(" ")[1].lstrip("'").rstrip("'")
@@ -351,7 +353,7 @@ def insert2UserTable():
                        + ","
                        + str(data["tipcount"])
                        + ","
-                       + str("0, ")
+                       + str("0")
                        + ","
                        + str(data["average_stars"])
                        + ","
