@@ -8,26 +8,29 @@ def cleanStr4SQL(s):
 
 def int2BoolStr(value):
     if value == 0:
-        return 'False'
+        return  0
     else:
-        return 'True'
+        return 1
 
 
 def insert2BusinessTable():
     """
-    CREATE TABLE Business
-    (
-        businessID INT NOT NULL,
-        bName VARCHAR(32),
-        --Address
-        bStreet VARCHAR(40),
-        bCity VARCHAR(20),
-        bState CHAR(2),
-        bPostal_Code INT,
-        --Location
-        bLatitude FLOAT,
-        bLongitude FLOAT,
-        CONSTRAINT pk_Business PRIMARY KEY(businessID)
+    CREATE TABLE Business(
+    businessID VARCHAR NOT NULL,
+    bName VARCHAR(100),
+    --Address
+    bStreet VARCHAR(40),
+    bCity VARCHAR(20),
+    bState CHAR(2),
+    bPostal_Code INT,
+    --Location
+    bLatitude FLOAT,
+    bLongitude FLOAT,
+    bNum_Tips INT,
+    bCheckins INT,
+    bIs_Open INT,
+    bNum_Stars FLOAT,
+    CONSTRAINT pk_Business PRIMARY KEY(businessID)
     );
     """
 
@@ -42,7 +45,7 @@ def insert2BusinessTable():
 
             # Generate the INSERT statement for the cussent business
             # include values for all businessTable attributes
-            sql_str = ("INSERT INTO Business (businessID, bName, bStreet, bCity, bState, bPostal_Code, bLatitude, bLongitude, stars, numCheckins, numTips, openStatus)\n"
+            sql_str = ("INSERT INTO Business (businessID, bName, bStreet, bCity, bState, bPostal_Code, bLatitude, bLongitude, bnum_Tips, bCheckins, bIs_Open, bNum_Stars)\n"
                        + "VALUES ('"
                        + cleanStr4SQL(data['business_id'])
                        + "','"
@@ -59,10 +62,10 @@ def insert2BusinessTable():
                        + str(data["latitude"])
                        + ","
                        + str(data["longitude"])
+                       + ", 0 , 0 ,"
+                       + str(int2BoolStr(data["is_open"]))
                        + ","
                        + str(data["stars"])
-                       + ", 0 , 0 ,"
-                       + int2BoolStr(data["is_open"])
                        + ");")
 
             outfile.write(sql_str)
@@ -79,13 +82,12 @@ def insert2BusinessTable():
 def insert2CheckinTable():
     """
     --Creates Checkin Relationship
-    CREATE TABLE Checkin
-    (
-        cBusinessID INT NOT NULL,
-        cDate DATE NOT NULL,
-        cTime TIME NOT NULL,
-        CONSTRAINT pk_Checkin PRIMARY KEY(cBusinessID, cDate, cTime),
-        CONSTRAINT fk_Checkin FOREIGN KEY(cBusinessID) REFERENCES Business(businessID)
+    CREATE TABLE Checkin(
+    cBusinessID VARCHAR NOT NULL,
+    cDate DATE NOT NULL,
+    cTime TIME NOT NULL,
+    CONSTRAINT pk_Checkin PRIMARY KEY(cBusinessID, cDate, cTime),
+    CONSTRAINT fk_Checkin FOREIGN KEY(cBusinessID) REFERENCES Business(businessID)
     );
     """
     with open('./yelp_checkin.JSON', 'r') as f:
@@ -123,13 +125,12 @@ def insert2CheckinTable():
 def insert2FriendsTable():
     """
     --Create Friends Relationship
-    CREATE TABLE Friends
-    (
-        userID1 INT NOT NULL,
-        userID2 INT NOT NULL,
-        CONSTRAINT pk_Friends PRIMARY KEY(userID1, userID2),
-        CONSTRAINT fk_Friend1 FOREIGN KEY(userID1) REFERENCES User(userID),
-        CONSTRAINT fk_Friend2 FOREIGN KEY(userID2) REFERENCES User(userID),
+    CREATE TABLE Friends(
+    userID1 VARCHAR NOT NULL,
+    userID2 VARCHAR NOT NULL,
+    CONSTRAINT pk_Friends PRIMARY KEY(userID1, userID2),
+    CONSTRAINT fk_Friend1 FOREIGN KEY(userID1) REFERENCES yelpUser(userID),
+    CONSTRAINT fk_Friend2 FOREIGN KEY(userID2) REFERENCES yelpUser(userID), 
     );
     """
     with open('./yelp_user.JSON', 'r') as f:
@@ -166,13 +167,12 @@ def insert2FriendsTable():
 def insert2HoursTable():
     """
     --Create Hours Weak Relation
-    CREATE TABLE Hours_Open
-    (
-        hBusinessID INT NOT NULL,
-        hDay VARCHAR(10),
-        hHours VARCHAR(20),
-        CONSTRAINT pk_Hours PRIMARY KEY(hBusinessID, hDay),
-        CONSTRAINT fk_Hours FOREIGN KEY(hBusinessID) REFERENCES Business(businessID)
+    CREATE TABLE Hours_Open(
+    hBusinessID VARCHAR NOT NULL,
+    hDay VARCHAR(10),
+    hHours VARCHAR(20),
+    CONSTRAINT pk_Hours PRIMARY KEY(hBusinessID, hDay),
+    CONSTRAINT fk_Hours FOREIGN KEY(hBusinessID) REFERENCES Business(businessID)
     );
     """
     with open('./yelp_business.JSON', 'r') as f:
@@ -211,13 +211,12 @@ def insert2HoursTable():
 def insert2Makes_TipsTable():
     """
     --Create Makes_Tips Relationship
-    CREATE TABLE Makes_Tips
-    (
-        mUserID INT NOT NULL,
-        mBusinessID INT NOT NULL,
-        CONSTRAINT pk_Makes_Tips PRIMARY KEY(mUserID, mBusinessID),
-        CONSTRAINT fk_mUser FOREIGN KEY(mUserID) REFERENCES User(userID),
-        CONSTRAINT fk_mBusiness FOREIGN KEY(mBusinessID) REFERENCES Business(businessID)
+    CREATE TABLE Makes_Tips(
+    mUserID VARCHAR NOT NULL,
+    mBusinessID VARCHAR NOT NULL,
+    CONSTRAINT pk_Makes_Tips PRIMARY KEY(mUserID, mBusinessID),
+    CONSTRAINT fk_mUser FOREIGN KEY(mUserID) REFERENCES yelpUser(userID),
+    CONSTRAINT fk_mBusiness FOREIGN KEY(mBusinessID) REFERENCES Business(businessID)
     );
 
     """
@@ -231,7 +230,7 @@ def insert2Makes_TipsTable():
 
             # Generate the INSERT statement for the cussent business
             # include values for all businessTable attributes
-            sql_str = ("INSERT INTO Hours_Open (hBusinessID, hDay, hHours)\n"
+            sql_str = ("INSERT INTO Hours_Open (mUserID, mBusinessID)\n"
                        + "VALUES ('"
                        + cleanStr4SQL(data["user_id"])
                        + "','"
@@ -253,20 +252,18 @@ def insert2Makes_TipsTable():
 def insert2TipTable():
     """
     --Create Tips
-    CREATE TABLE Tips
-    (
-        --Not certain for Primary key
-        tBusinessID INT NOT NULL,
-        tUserID INT NOT NULL,
-        --May change primary key later
+    CREATE TABLE Tips(
+    --Not certain for Primary key
+    tBusinessID VARCHAR NOT NULL,
+    tUserID VARCHAR NOT NULL,
+    --May change primary key later
 
-        tNum_Likes INT,
-        tPosted_Date DATE,
-        tPosted_Time TIME,
-        tText TEXT,
-        CONSTRAINT pk_Tips PRIMARY KEY(tUserID, tBusinessID),
-        CONSTRAINT fk_User FOREIGN KEY(tUserID) REFERENCES User(userID),
-        CONSTRAINT fk_Business FOREIGN KEY(tBusinessID) REFERENCES Business(businessID)
+    tNum_Likes INT,
+    tPosted_Datetime TIMESTAMP,
+    tText TEXT,
+    CONSTRAINT pk_Tips PRIMARY KEY(tUserID, tBusinessID, tPosted_Datetime),
+    CONSTRAINT fk_User FOREIGN KEY(tUserID) REFERENCES yelpUser(userID),
+    CONSTRAINT fk_Business FOREIGN KEY(tBusinessID) REFERENCES Business(businessID)
     );
     """
     with open('./yelp_tip.JSON', 'r') as f:
@@ -279,12 +276,12 @@ def insert2TipTable():
 
             # Generate the INSERT statement for the cussent business
             # include values for all businessTable attributes
-            sql_str = ("INSERT INTO Tips (tBusinessID, tUserID, tPosted_Date, tPosted_Time, tText)\n"
+            sql_str = ("INSERT INTO Tips (tBusinessID, tUserID, tNum_Likes, tPosted_Date, tPosted_Time, tText)\n"
                        + "VALUES ('"
                        + cleanStr4SQL(data['business_id'])
                        + "','"
                        + cleanStr4SQL(data["user_id"])
-                       + "',"
+                       + "', 0,"
                        + data["date"].split(" ")[0].lstrip("'").rstrip("'")
                        + ","
                        + data["date"].split(" ")[1].lstrip("'").rstrip("'")
@@ -307,27 +304,25 @@ def insert2TipTable():
 def insert2UserTable():
     """
     --Create User
-    CREATE TABLE User
-    (
-        userID INT NOT NULL,
-        uName VARCHAR(32),
-        uNum_Fans INT,
-        --Num Votes
-        uNum_Funny INT,
-        uNum_Cool INT,
-        uNum_Useful INT,
-        uTips_Count INT,
-        uTotal_Tip_Likes INT,
-        --Average Stars
-        uTotal_Stars INT,
-        uTotal_Ratings INT,
-        --Loacation
-        uLatitude FLOAT,
-        uLongitude FLOAT,
-        --Date Joined
-        uDate_Joined DATE,
-        uTime_Joined TIME,
-        CONSTRAINT pk_User PRIMARY KEY(userID)
+    CREATE TABLE yelpUser(
+    userID VARCHAR NOT NULL,
+    uName VARCHAR(32),
+    uNum_Fans INT,
+    --Num Votes
+    uNum_Funny INT,
+    uNum_Cool INT,
+    uNum_Useful INT,
+    uTips_Count INT,
+    uTotal_Likes INT,
+    --Average Stars
+    uAvg_Stars FLOAT,
+    --Loacation
+    uLatitude FLOAT,
+    uLongitude FLOAT,
+    --Date Joined
+    uDate_Joined DATE,
+    uTime_Joined TIME,
+    CONSTRAINT pk_User PRIMARY KEY(userID)
     );
     """
     with open('./yelp_user.JSON', 'r') as f:
@@ -340,7 +335,7 @@ def insert2UserTable():
 
             # Generate the INSERT statement for the cussent business
             # include values for all businessTable attributes
-            sql_str = ("INSERT INTO Tips (UserID, uName, uNum_Fans, uNum_Funny, uNumCool, uNumUseful, uTips_Count, uTotal_Tip_Likes, uTotal_Stars, uTotal_Ratings, uLatitude, uLongitude, uDate_Joined, uTime_Joined)\n"
+            sql_str = ("INSERT INTO yelpUser (UserID, uName, uNum_Fans, uNum_Funny, uNum_Cool, uNum_Useful, uTips_Count, uTotal_Likes, uAvg_Stars, uLatitude, uLongitude, uDate_Joined, uTime_Joined)\n"
                        + "VALUES ('"
                        + cleanStr4SQL(data["user_id"])
                        + "','"
@@ -356,9 +351,9 @@ def insert2UserTable():
                        + ","
                        + str(data["tipcount"])
                        + ","
-                       + str("0, 0, 0")
+                       + str("0, ")
                        + ","
-                       + str(data["tipcount"])
+                       + str(data["average_stars"])
                        + ","
                        + str(0.0)
                        + ","
