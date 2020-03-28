@@ -69,11 +69,14 @@ namespace Yelp_App
             init_BusinessList();
         }
 
+        private string DB = "milestone2";
+        private string PW = "Spartan-195";
+
         //Database Connection and Queries
         private string buildConnectionString()
         {
             //TODO: change Database and Password to connect to DB
-            return "Host = localhost; Username = postgres; Database = milestone2; Password = Spartan-195";
+            return "Host = localhost; Username = postgres; Database = " + DB + "; Password = " + PW;
         }
 
         //TODO: check/fix SELECT statements in following queries to match database tables
@@ -88,8 +91,9 @@ namespace Yelp_App
 
         private string queryBusinessesDefault()
         {
-            
-            return "SELECT  FROM business WHERE state = '" + State_Select.SelectedItem.ToString() + "' AND '" + City_List.SelectedItem.ToString() + "' AND '" + Zipcode_List.SelectedItem.ToString() + "' ORDER BY city";
+            //BusinessName, Address, City, State, Stars, NumTips, NumCheckins
+            //TODO: Adjust query to get latitude and longitude
+            return "SELECT bName, bStreet, bCity, bState, bNum_Stars, bNum_Tips, bCheckins FROM business WHERE state = '" + State_Select.SelectedItem.ToString() + "' AND '" + City_List.SelectedItem.ToString() + "' AND '" + Zipcode_List.SelectedItem.ToString() + "' ORDER BY city";
         }
 
 
@@ -304,10 +308,11 @@ namespace Yelp_App
                                     Address = reader.GetString(1),
                                     City = reader.GetString(2),
                                     State = reader.GetString(3),
-                                    Distane = reader.GetFloat(4),
-                                    Stars = reader.GetFloat(5),
-                                    NumTips = reader.GetInt32(6),
-                                    NumCheckins = reader.GetInt32(7)
+                                    //TODO: calculate distance to business
+                                    Distane = 0, //reader.GetFloat(4),
+                                    Stars = reader.GetFloat(4),
+                                    NumTips = reader.GetInt32(5),
+                                    NumCheckins = reader.GetInt32(6)
                                 });
                             }
                         }
