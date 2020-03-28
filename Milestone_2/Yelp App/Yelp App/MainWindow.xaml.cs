@@ -76,7 +76,7 @@ namespace Yelp_App
             return "Host = localhost; Username = postgres; Database = milestone2; Password = Spartan-195";
         }
 
-        //TODO: check/fix SELECT statements in following queries to match database
+        //TODO: check/fix SELECT statements in following queries to match database tables
         private string queryCity() {
             return "SELECT DISTINCT city FROM business WHERE state = '" + State_Select.SelectedItem.ToString() + "' ORDER BY city";
         }
