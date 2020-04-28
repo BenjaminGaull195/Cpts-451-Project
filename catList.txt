@@ -1,0 +1,825 @@
+             category             
+----------------------------------
+ Speakeasies
+ Coffee Roasteries
+ Car Rental
+ Pool & Hot Tub Service
+ Weight Loss Centers
+ Photographers
+ Cannabis Dispensaries
+ Bike Repair/Maintenance
+ Basketball Courts
+ Endocrinologists
+ Masonry Concrete
+ Beverage Store
+ Medical Transportation
+ Cuban
+ Irish
+ Fish & Chips
+ Sporting Goods
+ Insurance
+ Breweries
+ Cinema
+ Tires
+ Hookah Bars
+ Middle Eastern
+ Czech
+ Internet Cafes
+ Waffles
+ Cooking Classes
+ Apartment Agents
+ Tiling
+ Bartenders
+ Kickboxing
+ Lighting Stores
+ Obstetricians & Gynecologists
+ Vacation Rentals
+ RV Dealers
+ Used Car Dealers
+ Comfort Food
+ Kebab
+ Fitness Exercise Equipment
+ Check Cashing/Pay-day Loans
+ Self-defense Classes
+ Florists
+ Toy Stores
+ Gyms
+ Whiskey Bars
+ Art Tours
+ Professional Services
+ Teeth Whitening
+ Aquarium Services
+ Electronics
+ Kitchen Incubators
+ Fuel Docks
+ Izakaya
+ Taxis
+ Art Galleries
+ Sunglasses
+ Motorcycle Repair
+ Leisure Centers
+ Bed & Breakfast
+ Wineries
+ Arts & Entertainment
+ Firewood
+ Limos
+ Ice Cream & Frozen Yogurt
+ Brewpubs
+ Pool Halls
+ Grocery
+ Beer Gardens
+ Commercial Truck Dealers
+ Tennis
+ Boat Charters
+ Glass & Mirrors
+ Sports Wear
+ Distilleries
+ Country Dance Halls
+ Caterers
+ Gardeners
+ Observatories
+ Cooking Schools
+ Virtual Reality Centers
+ Metal Fabricators
+ Hotels
+ Community Centers
+ Pet Breeders
+ Pet Training
+ Personal Injury Law
+ Challenge Courses
+ Visitor Centers
+ Vietnamese
+ Ticket Sales
+ Car Stereo Installation
+ Mattresses
+ Playgrounds
+ Live/Raw Food
+ Baby Gear & Furniture
+ Street Vendors
+ Courthouses
+ Steakhouses
+ Department Stores
+ Vocational & Technical School
+ Fast Food
+ Kiosk
+ Horse Racing
+ Fabric Stores
+ Vape Shops
+ Shredding Services
+ Car Window Tinting
+ Used Bookstore
+ Waxing
+ Maternity Wear
+ Souvenir Shops
+ Criminal Defense Law
+ Swimwear
+ Gluten-Free
+ Wine & Spirits
+ Threading Services
+ Asian Fusion
+ Neurologist
+ Mags
+ Service Stations
+ Electricity Suppliers
+ Candle Stores
+ Pain Management
+ Tree Services
+ Arts & Crafts
+ Concierge Medicine
+ Hotels & Travel
+ Acne Treatment
+ Russian
+ Contractors
+ Kids Hair Salons
+ Recreation Centers
+ Boot Camps
+ Shanghainese
+ Martial Arts
+ Race Tracks
+ Printing Services
+ Dry Cleaning & Laundry
+ Mountain Biking
+ Smokehouse
+ Lawyers
+ Body Shops
+ Graphic Design
+ Jazz & Blues
+ Macarons
+ Transportation
+ Food Court
+ Art Supplies
+ Paint & Sip
+ Lingerie
+ Cosmetic Surgeons
+ Tours
+ Cajun Creole
+ Kids Activities
+ Interval Training Gyms
+ Currency Exchange
+ RV Rental
+ Turkish
+ Videos & Video Game Rental
+ General Dentistry
+ Water Heater Installation/Repair
+ Dance Schools
+ Modern European
+ Tiki Bars
+ Pet Hospice
+ Hot Dogs
+ Landmarks & Historical Buildings
+ Bowling
+ Furniture Reupholstery
+ Holiday Decorations
+ Food Trucks
+ Tubing
+ Travel Services
+ Gas Stations
+ Powder Coating
+ Mini Golf
+ Day Spas
+ Pick Your Own Farms
+ Financial Advising
+ Laser Eye Surgery Lasik
+ Acupuncture
+ Leather Goods
+ Notaries
+ Books
+ Massage Therapy
+ Uniforms
+ Arabian
+ Local Flavor
+ Public Transportation
+ Automotive
+ Personal Chefs
+ Wholesale Stores
+ Architects
+ Dance Studios
+ Animal Shelters
+ Painters
+ Sewing & Alterations
+ Libraries
+ Home Decor
+ Emergency Rooms
+ Tapas Small Plates
+ Wraps
+ Conveyor Belt Sushi
+ Casinos
+ Car Brokers
+ IT Services & Computer Repair
+ Tacos
+ Cupcakes
+ Hair Extensions
+ Skin Care
+ Boat Dealers
+ Cardiologists
+ Security Systems
+ Knitting Supplies
+ Skating Rinks
+ Elementary Schools
+ Cideries
+ Windshield Installation & Repair
+ Circuit Training Gyms
+ Cycling Classes
+ Property Management
+ Tanning
+ Ukrainian
+ Golf
+ Children`s Museums
+ Water Heater Installation Repair
+ Endodontists
+ Antiques
+ Eyelash Service
+ Speech Therapists
+ Vegan
+ Bounce House Rentals
+ Jewelry Repair
+ Dental Hygienists
+ Golf Equipment Shops
+ Orthopedists
+ Dog Walkers
+ International Grocery
+ Pet Cremation Services
+ Eatertainment
+ Perfume
+ Appliances
+ Eyebrow Services
+ Pizza
+ Spine Surgeons
+ Teppanyaki
+ Engraving
+ Soup
+ Garage Door Services
+ Shipping Centers
+ Ophthalmologists
+ Officiants
+ Strip Clubs
+ Pasta Shops
+ Trainers
+ Burgers
+ Air Duct Cleaning
+ Greek
+ Saunas
+ Barre Classes
+ Cabaret
+ Reiki
+ Health Retreats
+ Mortgage Lenders
+ Art Museums
+ Japanese
+ Outdoor Gear
+ Airport Lounges
+ Formal Wear
+ Heating & Air Conditioning/HVAC
+ Cabinetry
+ Auto Customization
+ Dog Parks
+ Hydro-jetting
+ Dinner Theater
+ Furniture Assembly
+ Resorts
+ Music & DVDs
+ Chicken Wings
+ Drive-In Theater
+ Meditation Centers
+ Nutritionists
+ Fondue
+ Performing Arts
+ Coffeeshops
+ Climbing
+ Golf Lessons
+ Colleges & Universities
+ Mailbox Centers
+ Cantonese
+ Thrift Stores
+ Butcher
+ Family Practice
+ Oxygen Bars
+ Henna Artists
+ Art Classes
+ Afghan
+ Dialysis Clinics
+ Makeup Artists
+ Dentists
+ Dermatologists
+ Mexican
+ Tabletop Games
+ Allergists
+ Mediterranean
+ Packing Services
+ Vacation Rental Agents
+ Damage Restoration
+ Spray Tanning
+ Religious Organizations
+ Midwives
+ Hair Stylists
+ Car Dealers
+ Team Building Activities
+ Drugstores
+ Arcades
+ Real Estate
+ Shoe Stores
+ Uzbek
+ Guns & Ammo
+ Singaporean
+ Venues & Event Spaces
+ Spanish
+ Comedy Clubs
+ Financial Services
+ Spin Classes
+ Pita
+ Optometrists
+ Public Markets
+ Chicken Shop
+ Burmese
+ Vehicle Wraps
+ Food Delivery Services
+ Delicatessen
+ Restaurants
+ Hospitals
+ Child Care & Day Care
+ Wine Bars
+ Professional Sports Teams
+ Hair Salons
+ Mongolian
+ Imported Food
+ Golf Equipment
+ Airlines
+ Shaved Ice
+ Paint-Your-Own Pottery
+ Opera & Ballet
+ Synagogues
+ Electronics Repair
+ Barbeque
+ Occupational Therapy
+ Amusement Parks
+ Persian Iranian
+ Dance Wear
+ Paintball
+ Beer Garden
+ Barbers
+ Chiropractors
+ Pet Services
+ Sushi Bars
+ Pet Groomers
+ Lakes
+ Used
+ Permanent Makeup
+ Hair Removal
+ Hobby Shops
+ Real Estate Agents
+ Women`s Clothing
+ Airport Terminals
+ University Housing
+ Nail Salons
+ Health & Medical
+ Workers Compensation Law
+ Musical Instrument Services
+ Irrigation
+ Donation Center
+ Candy Stores
+ Traffic Ticketing Law
+ Tattoo
+ Donuts
+ Christmas Trees
+ Personal Shopping
+ Flea Markets
+ Caribbean
+ Go Karts
+ Livestock Feed & Supply
+ Carpeting
+ Registration Services
+ Emergency Pet Hospital
+ Oaxacan
+ Nurse Practitioner
+ Pet Sitting
+ Music Venues
+ Hot Pot
+ Cheese Shops
+ Home Cleaning
+ Hiking
+ Do-It-Yourself Food
+ Hardware Stores
+ Olive Oil
+ Cosmetic Dentists
+ Moroccan
+ Meat Shops
+ Custom Cakes
+ Nurseries & Gardening
+ Ear Nose & Throat
+ Fingerprinting
+ Tattoo Removal
+ Tapas/Small Plates
+ Health Coach
+ Botanical Gardens
+ Transmission Repair
+ Tea Rooms
+ Diagnostic Services
+ Archery
+ Guitar Stores
+ Blow Dry/Out Services
+ Airports
+ Cocktail Bars
+ Pawn Shops
+ Veterinarians
+ Pool Cleaners
+ Ethnic Food
+ Dominican
+ Towing
+ Propane
+ Auto Insurance
+ Bike Repair Maintenance
+ Lighting Fixtures & Equipment
+ Hunting & Fishing Supplies
+ Trampoline Parks
+ Juice Bars & Smoothies
+ Estheticians
+ Laser Hair Removal
+ Spiritual Shop
+ Reflexology
+ Brewing Supplies
+ Zoos
+ Shopping Centers
+ Tableware
+ Hot Tub & Pool
+ Seafood Markets
+ Karaoke
+ Fitness & Instruction
+ Tanning Beds
+ Marketing
+ Sports Bars
+ Lounges
+ Signmaking
+ Kitchen & Bath
+ Fruits & Veggies
+ Specialty Food
+ Lebanese
+ Costumes
+ Chinese
+ Chocolatiers & Shops
+ Bistros
+ Shaved Snow
+ Seafood
+ Pumpkin Patches
+ Screen Printing
+ Plastic Surgeons
+ Utilities
+ Orthotics
+ Skydiving
+ Bikes
+ Preschools
+ Pilates
+ Event Planning & Services
+ Self Storage
+ Poutineries
+ Diners
+ Motorcycle Gear
+ Buffets
+ Auto Upholstery
+ Appliances & Repair
+ Cigar Bars
+ Scandinavian
+ Luggage
+ Hospice
+ Mobile Dent Repair
+ Building Supplies
+ Accessories
+ Patisserie/Cake Shop
+ Landscaping
+ Salad
+ Smog Check Stations
+ Hungarian
+ Organic Stores
+ Comic Books
+ Divorce & Family Law
+ Wedding Chapels
+ American (Traditional)
+ Restaurant Supplies
+ Poke
+ Coffee & Tea Supplies
+ Outdoor Furniture Stores
+ Australian
+ Mobile Phones
+ Pet Boarding
+ Parks
+ Active Life
+ German
+ Peruvian
+ Gold Buyers
+ Nightlife
+ Emergency Medicine
+ Hybrid Car Repair
+ Szechuan
+ Southern
+ Parking
+ Adult
+ Champagne Bars
+ Persian/Iranian
+ Dry Cleaning
+ Fishing
+ Dance Clubs
+ Countertop Installation
+ Pretzels
+ Roadside Assistance
+ Beaches
+ Popcorn Shops
+ Malaysian
+ Hair Loss Centers
+ Shopping
+ Cultural Center
+ Vintage & Consignment
+ Herbs & Spices
+ Home Automation
+ Music & Video
+ Country Clubs
+ Bars
+ Physical Therapy
+ Scavenger Hunts
+ Filipino
+ Bakeries
+ Laotian
+ Recycling Center
+ Indian
+ Bubble Tea
+ Prosthodontists
+ Skate Parks
+ Adult Education
+ Summer Camps
+ Heating & Air Conditioning HVAC
+ Framing
+ Taiwanese
+ Pets
+ Cannabis Clinics
+ Thai
+ Oil Change Stations
+ Television Stations
+ Pub Food
+ Rotisserie Chicken
+ Club Crawl
+ Handyman
+ Tex-Mex
+ Venezuelan
+ Gift Shops
+ Civic Center
+ Kosher
+ Dim Sum
+ Home Energy Auditors
+ Car Wash
+ Vegetarian
+ Rock Climbing
+ Airport Shuttles
+ Car Inspectors
+ Sports Medicine
+ Tapas Bars
+ Gelato
+ Bridal
+ Aerial Fitness
+ Television Service Providers
+ Internal Medicine
+ Urgent Care
+ Cheesesteaks
+ Ethnic Grocery
+ Convenience Stores
+ Trinidadian
+ Farmers Market
+ Customs Brokers
+ Delis
+ Museums
+ Water Parks
+ Post Offices
+ Halal
+ Specialty Schools
+ Teacher Supplies
+ Interior Design
+ Bike Rentals
+ Carpet Installation
+ Departments of Motor Vehicles
+ Soul Food
+ Fashion
+ Bagels
+ American (New)
+ Car Buyers
+ Brasseries
+ Cambodian
+ Junk Removal & Hauling
+ Falafel
+ Swimming Lessons Schools
+ Watch Repair
+ Sports Clubs
+ Community Service/Non-Profit
+ Men`s Clothing
+ Baseball Fields
+ Austrian
+ Auto Parts & Supplies
+ Bookstores
+ Laser Tag
+ Hotel bar
+ Belgian
+ Commercial Real Estate
+ Outlet Stores
+ Embroidery & Crochet
+ Colombian
+ Rugs
+ Mobile Phone Accessories
+ Escape Games
+ Laboratory Testing
+ Hawaiian
+ College Counseling
+ Festivals
+ Aestheticians
+ Plus Size Fashion
+ Blood & Plasma Donation Centers
+ Skate Shops
+ Kombucha
+ Yelp Events
+ Float Spa
+ Placenta Encapsulations
+ Gay Bars
+ Live Raw Food
+ Korean
+ Pet Stores
+ Breakfast & Brunch
+ Haunted Houses
+ CSA
+ Farms
+ Electricians
+ Wedding Planning
+ Eyewear & Opticians
+ Video Game Stores
+ Shoe Repair
+ Empanadas
+ Party & Event Planning
+ Water Purification Services
+ Pakistani
+ Doctors
+ Pharmacy
+ Bankruptcy Law
+ Nail Technicians
+ Body Contouring
+ Amateur Sports Teams
+ Health Markets
+ Petting Zoos
+ Sandwiches
+ Cosmetics & Beauty Supply
+ Movers
+ Latin American
+ Diagnostic Imaging
+ Horseback Riding
+ DUI Law
+ Screen Printing/T-Shirt Printing
+ Local Fish Stores
+ Walk-in Clinics
+ Social Security Law
+ Banks & Credit Unions
+ Life Insurance
+ Furniture Stores
+ Home & Garden
+ Commercial Truck Repair
+ Internet Service Providers
+ Data Recovery
+ Periodontists
+ Pediatric Dentists
+ Oral Surgeons
+ Couriers & Delivery Services
+ Telecommunications
+ Sugaring
+ Watches
+ Piano Services
+ Photography Stores & Services
+ Aquariums
+ Passport & Visa Services
+ Food Banks
+ Flooring
+ Blow Dry Out Services
+ RV Repair
+ Himalayan Nepalese
+ Massage Schools
+ African
+ Ethiopian
+ Puerto Rican
+ Pop-up Shops
+ Vinyl Records
+ Real Estate Services
+ Wine Tasting Room
+ Portuguese
+ Mobile Phone Repair
+ Community Service Non-Profit
+ Wigs
+ Cafes
+ Food
+ New Mexican Cuisine
+ Cafeteria
+ Yoga
+ Boating
+ Irish Pub
+ Auto Detailing
+ Naturopathic Holistic
+ Computers
+ Shoe Shine
+ Gymnastics
+ Discount Store
+ Wholesalers
+ Motorcycle Dealers
+ Pediatricians
+ Foundation Repair
+ Gun/Rifle Ranges
+ Party Equipment Rentals
+ Brazilian
+ Home Services
+ Gun Rifle Ranges
+ Churches
+ Public Services & Government
+ French
+ Piercing
+ Truck Rental
+ Soccer
+ Orthodontists
+ Salvadoran
+ British
+ Architectural Tours
+ Beer Bar
+ Mass Media
+ Polish
+ Keys & Locksmiths
+ Tobacco Shops
+ Recording & Rehearsal Studios
+ Pan Asian
+ Trailer Repair
+ Septic Services
+ Indoor Playcentre
+ Disc Golf
+ Cardio Classes
+ Musical Instruments & Teachers
+ Flowers & Gifts
+ Boxing
+ Piano Bars
+ Stadiums & Arenas
+ Party Supplies
+ Auto Repair
+ Hydrotherapy
+ Pest Control
+ Educational Services
+ Auto Loan Providers
+ Cards & Stationery
+ Middle Schools & High Schools
+ Social Clubs
+ Beer
+ Shared Office Spaces
+ Life Coach
+ Medical Centers
+ Creperies
+ Bird Shops
+ Cosmetology Schools
+ Apartments
+ Pet Adoption
+ Adult Entertainment
+ DJs
+ Desserts
+ Battery Stores
+ Cajun/Creole
+ Medical Spas
+ Wheel & Rim Repair
+ Massage
+ Natural Gas Suppliers
+ Children`s Clothing
+ Newspapers & Magazines
+ Art Schools
+ Water Stores
+ Bespoke Clothing
+ Coffee & Tea
+ Armenian
+ Home & Rental Insurance
+ Food Stands
+ Laundry Services
+ Gastropubs
+ Ramen
+ Argentine
+ Rehabilitation Center
+ Piano Stores
+ Vitamins & Supplements
+ Basque
+ Head Shops
+ Condominiums
+ Plumbing
+ Italian
+ Patisserie Cake Shop
+ Laundromat
+ Customized Merchandise
+ Municipality
+ Jewelry
+ Beauty & Spas
+ Hostels
+ Swimming Pools
+ Dive Bars
+ Mortgage Brokers
+ Pubs
+ Noodles
+ Home Window Tinting
+ Office Equipment
+ Local Services
+ Acai Bowls
+ Men`s Hair Salons
+ Auto Glass Services
+ Education
+ Rafting Kayaking
+(821 rows)
+
