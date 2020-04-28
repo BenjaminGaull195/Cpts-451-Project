@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Device.Location;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,9 +35,9 @@ namespace Yelp_App
             public string Address { get; set; }
             public string City { get; set; }
             public string State { get; set; }
-            //public float Distane { get; set; }
-            public float Longitude { get; set; }
-            public float Latitude { get; set; }
+            public float Distane { get; set; }
+            //public float Longitude { get; set; }
+            //public float Latitude { get; set; }
             public float Stars { get; set; }
             public int NumTips { get; set; }
             public int NumCheckins { get; set; }
@@ -101,7 +102,11 @@ namespace Yelp_App
         {
             //BusinessName, Address, City, State, Stars, NumTips, NumCheckins
             //TODO: Adjust query to get latitude and longitude
-            return "SELECT businessID, bName, bStreet, bCity, bState, bLatitude, bLongitude, bNum_Stars, bNum_Tips, bCheckins FROM business WHERE state = '" + State_Select.SelectedItem.ToString() + "' AND '" + City_List.SelectedItem.ToString() + "' AND '" + Zipcode_List.SelectedItem.ToString() + "' ORDER BY city";
+            GeoCoordinateWatcher currentLocation = new GeoCoordinateWatcher();
+            currentLocation.Start();
+            GeoCoordinate currentCoordinate = currentLocation.Position.Location;
+
+            return "SELECT businessID, bName, bStreet, bCity, bState, calculate_distance('" + currentCoordinate.Latitude + "', '" + currentCoordinate.Longitude + "', bLatitude, bLongitude, M), bNum_Stars, bNum_Tips, bCheckins FROM business WHERE state = '" + State_Select.SelectedItem.ToString() + "' AND '" + City_List.SelectedItem.ToString() + "' AND '" + Zipcode_List.SelectedItem.ToString() + "' ORDER BY city";
         }
 
         private string queryAllCategories()
@@ -147,19 +152,17 @@ namespace Yelp_App
         //TODO: fix category table attributes
         private string buildBusinessQuery()
         {
-            string sql = "SELECT businessID, bName, bStreet, bCity, bState, bLatitude, bLongitude, bNum_Stars, bNum_Tips, bCheckins " +
+            GeoCoordinateWatcher currentLocation = new GeoCoordinateWatcher();
+            currentLocation.Start();
+            GeoCoordinate currentCoordinate = currentLocation.Position.Location;
+
+
+            string sql = "SELECT businessID, bName, bStreet, bCity, bState, calculate_distance('" + currentCoordinate.Latitude + "', '" + currentCoordinate.Longitude + "', bLatitude, bLongitude, M), bNum_Stars, bNum_Tips, bCheckins " +
                       "FROM business, category " +
                       "WHERE business.bID = category.bID AND state = '" + State_Select.SelectedItem.ToString() + "' AND bCity = '" + City_List.SelectedItem.ToString() + "' AND bPostal_Code = '" + Zipcode_List.SelectedItem.ToString() + "'";
             for (int i = 0; i < Selected_Business_Categories.Count; ++i)
             {
-                if (i == 0) {
-                    sql = sql + "AND categoryName = '" + Selected_Business_Categories[i] + "'";
-                }
-                else
-                {
-                    sql = sql + "OR categoryName = '" + Selected_Business_Categories[i] + "'";
-
-                }
+                
             }
 
             sql += " ORDER BY city";
@@ -392,11 +395,10 @@ namespace Yelp_App
                                     City = reader.GetString(3),
                                     State = reader.GetString(4),
                                     //TODO: calculate distance to business
-                                    Longitude = reader.GetFloat(6),
-                                    Latitude = reader.GetFloat(5), //reader.GetFloat(4),
-                                    Stars = reader.GetFloat(7),
-                                    NumTips = reader.GetInt32(8),
-                                    NumCheckins = reader.GetInt32(9)
+                                    Distane = reader.GetFloat(5),
+                                    Stars = reader.GetFloat(6),
+                                    NumTips = reader.GetInt32(7),
+                                    NumCheckins = reader.GetInt32(8)
                                 });
                             }
                         }
@@ -529,12 +531,10 @@ namespace Yelp_App
                                     City = reader.GetString(3),
                                     State = reader.GetString(4),
                                     //TODO: calculate distance to business
-                                    //Distane = 0, //reader.GetFloat(4),
-                                    Latitude = reader.GetFloat(5),
-                                    Longitude = reader.GetFloat(6),
-                                    Stars = reader.GetFloat(7),
-                                    NumTips = reader.GetInt32(8),
-                                    NumCheckins = reader.GetInt32(9)
+                                    Distane = reader.GetFloat(5),
+                                    Stars = reader.GetFloat(6),
+                                    NumTips = reader.GetInt32(7),
+                                    NumCheckins = reader.GetInt32(8)
                                 });
                             }
                         }
