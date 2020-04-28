@@ -31,6 +31,15 @@ namespace Yelp_App
             public int totalTipLikes { get; set; }
         }
 
+        public class Tip
+        {
+            public string Username { get; set; }
+            public string Bussiness { get; set; }
+            public string City { get; set; }
+            public string Text { get; set; }
+            public string Date { get; set; }
+        }
+
         public class Business
         {
             public string BusinessID { get; set; }
@@ -165,6 +174,16 @@ namespace Yelp_App
         private string queryFriends(String Item)
         {
             return "SELECT * FROM Friends WHERE userID1 = '" + Item + "'";
+        }
+
+        private string queryTips(string userId)
+        {
+            return "SELECT * FROM Tips WHERE tuserID = '" + userId + "' ORDER BY tPosted_Datetime DESC";
+        }
+
+        private string queryBusiness(string BID)
+        {
+            return "SELECT bName, bCity FROM Business WHERE businessID = '" + BID + "'";
         }
 
         //TODO: fix category table attributes
@@ -405,7 +424,161 @@ namespace Yelp_App
             
             populateUserInformation();
             populateFriendsTable(index, item);
+            populateTipsTable(index, item);
         }
+
+        private List<string> getFriends(string userID)
+        {
+            List<string> friends = new List<string>();
+            using (var connection = new NpgsqlConnection(buildConnectionString()))
+            {
+                connection.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = connection;
+                    cmd.CommandText = queryFriends(userID);
+
+                    try
+                    {
+                        var reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            friends.Add(reader.GetString(1));
+                        }
+                    }
+                    catch (NpgsqlException ex)
+                    {
+                        Console.WriteLine(ex.Message.ToString());
+                        System.Windows.MessageBox.Show("SQL Error - " + ex.Message.ToString());
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            return friends;
+        }
+
+        private Tip getLatestTip(string userID)
+        {
+            Tip latestTip = new Tip() 
+            { 
+                Username = "NA",
+                Bussiness = "NA",
+                City = "NA",
+                Text = "No Tips posted.",
+                Date = "NA"
+            };
+            int readFirst = 0;
+            using (var connection = new NpgsqlConnection(buildConnectionString()))
+            {
+                connection.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = connection;
+                    cmd.CommandText = queryTips(userID);
+
+                    try
+                    {
+                        var reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            if(readFirst == 0)
+                            {
+                                latestTip = new Tip()
+                                {
+                                    Username = reader.GetString(1),
+                                    Bussiness = reader.GetString(0),
+                                    City = "",
+                                    Text = reader.GetString(4),
+                                    Date = reader.GetTimeStamp(3).ToString()
+                                };
+                                readFirst++;
+                            }
+                        }
+                    }
+                    catch (NpgsqlException ex)
+                    {
+                        Console.WriteLine(ex.Message.ToString());
+                        System.Windows.MessageBox.Show("SQL Error - " + ex.Message.ToString());
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            latestTip = updateBusinessInformation(latestTip);
+            latestTip =  updateUserInformation(latestTip);
+            return latestTip;
+        }
+
+        private Tip updateBusinessInformation(Tip latestTip)
+        {
+            using (var connection = new NpgsqlConnection(buildConnectionString()))
+            {
+                connection.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = connection;
+                    cmd.CommandText = queryBusiness(latestTip.Bussiness);
+
+                    try
+                    {
+                        var reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            latestTip.Bussiness = reader.GetString(0);
+                            latestTip.City = reader.GetString(1);
+                        }
+                    }
+                    catch (NpgsqlException ex)
+                    {
+                        Console.WriteLine(ex.Message.ToString());
+                        System.Windows.MessageBox.Show("SQL Error - " + ex.Message.ToString());
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            return latestTip;
+        }
+
+        private Tip updateUserInformation(Tip latestTip)
+        {
+            using (var connection = new NpgsqlConnection(buildConnectionString()))
+            {
+                connection.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = connection;
+                    cmd.CommandText = queryUser(latestTip.Username);
+
+                    try
+                    {
+                        var reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            latestTip.Username = reader.GetString(1);
+                        }
+                    }
+                    catch (NpgsqlException ex)
+                    {
+                        Console.WriteLine(ex.Message.ToString());
+                        System.Windows.MessageBox.Show("SQL Error - " + ex.Message.ToString());
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+            return latestTip;
+        }
+
 
         private void populateUserInformation()
         {
@@ -460,34 +633,8 @@ namespace Yelp_App
             List<string> friends = new List<string>();
             if (selectedIndex > -1)
             {
-                using (var connection = new NpgsqlConnection(buildConnectionString()))
-                {
-                    connection.Open();
-                    using (var cmd = new NpgsqlCommand())
-                    {
-                        cmd.Connection = connection;
-                        cmd.CommandText = queryFriends(item);
-
-                        try
-                        {
-                            var reader = cmd.ExecuteReader();
-                            while (reader.Read())
-                            {
-                                friends.Add(reader.GetString(1));
-                            }
-                        }
-                        catch (NpgsqlException ex)
-                        {
-                            Console.WriteLine(ex.Message.ToString());
-                            System.Windows.MessageBox.Show("SQL Error - " + ex.Message.ToString());
-                        }
-                        finally
-                        {
-                            connection.Close();
-                        }
-                    }
-                }
-                foreach(string friend in friends)
+                friends = getFriends(item);
+                foreach (string friend in friends)
                 {
                     using (var connection = new NpgsqlConnection(buildConnectionString()))
                     {
@@ -523,6 +670,24 @@ namespace Yelp_App
                                 connection.Close();
                             }
                         }
+                    }
+                }
+            }
+        }
+
+        private void populateTipsTable(int selectedIndex, string userid)
+        {
+            LatestTipsGrid.Items.Clear();
+            List<string> friends = new List<string>();
+            if (selectedIndex > -1)
+            {
+                friends = getFriends(userid);
+                foreach (string friend in friends)
+                {
+                    Tip currentTip = getLatestTip(friend);
+                    if(currentTip.Text != "No Tips posted.")
+                    {
+                        LatestTipsGrid.Items.Add(currentTip);
                     }
                 }
             }
