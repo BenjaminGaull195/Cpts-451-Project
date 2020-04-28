@@ -101,11 +101,3 @@ CREATE TABLE Hours_Open(
     CONSTRAINT pk_Hours PRIMARY KEY(hBusinessID, hDay),
     CONSTRAINT fk_Hours FOREIGN KEY(hBusinessID) REFERENCES Business(businessID)
 );
-
---Create relation for catagories
-CREATE TABLE Categories(
-    cBusinessID VARCHAR NOT NULL,
-    Category VARCHAR,
-    CONSTRAINT pk_Categories PRIMARY KEY(cBusinessID, Category),
-    CONSTRAINT fk_Categories FOREIGN KEY(cBusinessID) REFERENCES Business(businessID)
-);

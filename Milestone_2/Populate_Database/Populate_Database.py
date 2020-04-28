@@ -79,6 +79,48 @@ def insert2BusinessTable():
     return count_line
 
 
+def insert2Categories():
+    """
+    --Create relation for categories
+    CREATE TABLE Categories(
+    cBusinessID VARCHAR NOT NULL,
+    Category VARCHAR,
+    CONSTRAINT pk_Categories PRIMARY KEY(cBusinessID, Category),
+    CONSTRAINT fk_Categories FOREIGN KEY(cBusinessID) REFERENCES Business(businessID)
+    );
+    """
+    with open('./yelp_business.JSON', 'r') as f:
+        outfile = open('./yelp_catagories.SQL', 'w')
+        line = f.readline()
+        count_line = 0
+
+        while line:
+            data = json.loads(line)
+
+            # Generate the INSERT statement for the current business
+            # include values for all businessTable attributes
+            category_data = data["categories"].split(",")
+            for category in category_data:
+                if "'" in cleanStr4SQL(str(category)):
+                    print(cleanStr4SQL(str(category)))
+                sql_str = ("INSERT INTO Categories (cBusinessID, Category)\n"
+                           + "VALUES ('"
+                           + cleanStr4SQL(data['business_id'])
+                           + "','"
+                           + cleanStr4SQL(str(category)).lstrip()
+                           + "');")
+
+                outfile.write(sql_str)
+                outfile.write("\n\n")
+
+            line = f.readline()
+            count_line += 1
+
+    outfile.close()
+    f.close()
+    return count_line
+
+
 def insert2CheckinTable():
     """
     --Creates Checkin Relationship
@@ -379,11 +421,13 @@ def insert2UserTable():
 
 def main():
 
-    lines_in_tables = [19983, 17978, 189298, 19983, 287288, 287288, 189298]
-    table_names = ["business", "checkin",
+    lines_in_tables = [19983, 19983, 17978, 189298, 19983, 287288, 287288, 189298]
+    table_names = ["business", "category", "checkin",
                    "friends", "hours", "makes_tips", "tip", "user"]
-    read_in_tables = [insert2BusinessTable(), insert2CheckinTable(
+    read_in_tables = [insert2BusinessTable(), insert2Categories(), insert2CheckinTable(
     ), insert2FriendsTable(), insert2HoursTable(), insert2Makes_TipsTable(), insert2TipTable(), insert2UserTable()]
+
+    
 
     for x in range(len(table_names)):
         if lines_in_tables[x] != read_in_tables[x]:
