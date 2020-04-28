@@ -29,16 +29,20 @@
                     <ListBox x:Name="Zipcode_List" HorizontalAlignment="Left" Height="125" Margin="20,240,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="Zipcode_Selected"/>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="546" Margin="10,385,0,0" Stroke="Black" VerticalAlignment="Top" Width="275"/>
                     <Label Content="Business Categories:" HorizontalAlignment="Left" Height="30" Margin="20,390,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold"/>
-                    <ListBox x:Name="Category_List" HorizontalAlignment="Left" Height="296" Margin="20,420,0,0" VerticalAlignment="Top" Width="250"/>
-                    <Button x:Name="Business_Search" Content="Search Businesses" HorizontalAlignment="Left" Height="24" Margin="20,896,0,0" VerticalAlignment="Top" Width="250" FontWeight="Bold"/>
-                    <ListBox x:Name="Selected_Categories_List" HorizontalAlignment="Left" Height="140" Margin="20,751,0,0" VerticalAlignment="Top" Width="250"/>
-                    <Button x:Name="Category_Add" Content="Add" HorizontalAlignment="Left" Height="25" Margin="20,721,0,0" VerticalAlignment="Top" Width="120"/>
-                    <Button x:Name="Category_Remove" Content="Remove" HorizontalAlignment="Left" Height="25" Margin="150,721,0,0" VerticalAlignment="Top" Width="120"/>
+                    <ListBox x:Name="Category_List" HorizontalAlignment="Left" Height="296" Margin="20,420,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="Category_List_Selection"/>
+                    <Button x:Name="Business_Search" Content="Search Businesses" HorizontalAlignment="Left" Height="24" Margin="20,896,0,0" VerticalAlignment="Top" Width="250" FontWeight="Bold" Click="Business_Category_Filter_Search"/>
+                    <ListBox x:Name="Selected_Categories_List" HorizontalAlignment="Left" Height="140" Margin="20,751,0,0" VerticalAlignment="Top" Width="250" SelectionChanged="Selected_Category_Update"/>
+                    <Button x:Name="Category_Add" Content="Add" HorizontalAlignment="Left" Height="25" Margin="20,721,0,0" VerticalAlignment="Top" Width="120" Click="Category_Add_Click"/>
+                    <Button x:Name="Category_Remove" Content="Remove" HorizontalAlignment="Left" Height="25" Margin="150,721,0,0" VerticalAlignment="Top" Width="120" Click="Category_Remove_Click"/>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="569" Margin="290,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="1386"/>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="347" Margin="290,584,0,0" Stroke="Black" VerticalAlignment="Top" Width="1386"/>
                     <Label Content="Search Results:" HorizontalAlignment="Left" Height="31" Margin="290,12,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold"/>
                     <Label Content="Selected Business:" HorizontalAlignment="Left" Height="40" Margin="290,584,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold"/>
                     <DataGrid x:Name="Business_List" HorizontalAlignment="Left" Height="526" Margin="300,43,0,0" VerticalAlignment="Top" Width="1360" RenderTransformOrigin="0.239,0.216" SelectionChanged="Business_Selected"/>
+                    <Label x:Name="Selected_Business_Name" Content="" HorizontalAlignment="Left" Height="35" Margin="315,620,0,0" VerticalAlignment="Top" Width="400" FontWeight="Bold" Background="#FFA4A4A4"/>
+                    <Label x:Name="Selected_Business_Address" Content="" HorizontalAlignment="Left" Height="35" Margin="315,660,0,0" VerticalAlignment="Top" Width="400" FontWeight="Bold" Background="#FFDDDDDD"/>
+                    <Label x:Name="Selected_Business_Hours" Content="" HorizontalAlignment="Left" Height="35" Margin="315,700,0,0" VerticalAlignment="Top" Width="400" FontWeight="Bold" Background="#FFDDDDDD"/>
+                    <Button x:Name="Business_Checkin_Button" Content="Button" HorizontalAlignment="Left" Height="75" Margin="810,620,0,0" VerticalAlignment="Top" Width="101" Click="Update_Business_Checkin"/>
 
                 </Grid>
             </TabItem>

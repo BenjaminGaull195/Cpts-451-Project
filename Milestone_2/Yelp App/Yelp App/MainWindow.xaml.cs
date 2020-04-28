@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,7 +33,9 @@ namespace Yelp_App
             public string Address { get; set; }
             public string City { get; set; }
             public string State { get; set; }
-            public float Distane { get; set; }
+            //public float Distane { get; set; }
+            public float Longitude { get; set; }
+            public float Latitude { get; set; }
             public float Stars { get; set; }
             public int NumTips { get; set; }
             public int NumCheckins { get; set; }
@@ -53,10 +56,10 @@ namespace Yelp_App
 
         }
 
-        public class Category
-        {
-            public string category_name { get; set; }
-        }
+        //public class Category
+        //{
+        //    public string category_name { get; set; }
+        //}
 
 
 
@@ -71,6 +74,10 @@ namespace Yelp_App
 
         private string DB = "milestone2";
         private string PW = "Spartan-195";
+        private Business cur_Business;
+        private string cur_Category;
+        private ArrayList Business_Categories = new ArrayList();
+        private ArrayList Selected_Business_Categories = new ArrayList();
 
         //Database Connection and Queries
         private string buildConnectionString()
@@ -93,7 +100,30 @@ namespace Yelp_App
         {
             //BusinessName, Address, City, State, Stars, NumTips, NumCheckins
             //TODO: Adjust query to get latitude and longitude
-            return "SELECT bName, bStreet, bCity, bState, bNum_Stars, bNum_Tips, bCheckins FROM business WHERE state = '" + State_Select.SelectedItem.ToString() + "' AND '" + City_List.SelectedItem.ToString() + "' AND '" + Zipcode_List.SelectedItem.ToString() + "' ORDER BY city";
+            return "SELECT bName, bStreet, bCity, bState, bLatitude, bLongitude, bNum_Stars, bNum_Tips, bCheckins FROM business WHERE state = '" + State_Select.SelectedItem.ToString() + "' AND '" + City_List.SelectedItem.ToString() + "' AND '" + Zipcode_List.SelectedItem.ToString() + "' ORDER BY city";
+        }
+
+        //TODO: fix category table attributes
+        private string buildBusinessQuery()
+        {
+            string sql = "SELECT bName, bStreet, bCity, bState, bLatitude, bLongitude, bNum_Stars, bNum_Tips, bCheckins " +
+                      "FROM business, category " +
+                      "WHERE business.bID = category.bID AND state = '" + State_Select.SelectedItem.ToString() + "' AND bCity = '" + City_List.SelectedItem.ToString() + "' AND bPostal_Code = '" + Zipcode_List.SelectedItem.ToString() + "'";
+            for (int i = 0; i < Selected_Business_Categories.Count; ++i)
+            {
+                if (i == 0) {
+                    sql = sql + "AND categoryName = '" + Selected_Business_Categories[i] + "'";
+                }
+                else
+                {
+                    sql = sql + "OR categoryName = '" + Selected_Business_Categories[i] + "'";
+
+                }
+            }
+
+            sql += " ORDER BY city";
+
+            return sql;
         }
 
 
@@ -266,7 +296,7 @@ namespace Yelp_App
                             var reader = cmd.ExecuteReader();
                             while (reader.Read())
                             {
-                                Zipcode_List.Items.Add(reader.GetString(0));//add to city list
+                                Zipcode_List.Items.Add(reader.GetString(0));//add to zipcode list
                             }
                         }
                         catch (NpgsqlException ex)
@@ -309,10 +339,11 @@ namespace Yelp_App
                                     City = reader.GetString(2),
                                     State = reader.GetString(3),
                                     //TODO: calculate distance to business
-                                    Distane = 0, //reader.GetFloat(4),
-                                    Stars = reader.GetFloat(4),
-                                    NumTips = reader.GetInt32(5),
-                                    NumCheckins = reader.GetInt32(6)
+                                    Longitude = reader.GetFloat(5),
+                                    Latitude = reader.GetFloat(4), //reader.GetFloat(4),
+                                    Stars = reader.GetFloat(6),
+                                    NumTips = reader.GetInt32(7),
+                                    NumCheckins = reader.GetInt32(8)
                                 });
                             }
                         }
@@ -335,6 +366,103 @@ namespace Yelp_App
 
         }
 
-        
+        //private void Category_List_Selection(object sender, SelectionChangedEventArgs e)
+        //{
+            
+        //}
+
+        //private void Selected_Category_Update(object sender, SelectionChangedEventArgs e)
+        //{
+        //    selected_Category = new Category() { category_name = Category_List.SelectedItem.ToString() };
+        //}
+
+        private void Category_Add_Click(object sender, RoutedEventArgs e)
+        {
+            string selected_Cat_Text = Category_List.SelectedItem.ToString();
+            int selected_Cat_Index = Category_List.SelectedIndex;
+
+            Selected_Categories_List.Items.Add(selected_Cat_Text);
+            if (Business_Categories != null)
+            {
+                Business_Categories.RemoveAt(selected_Cat_Index);
+            }
+            ApplyDataBinding();
+        }
+
+        private void Category_Remove_Click(object sender, RoutedEventArgs e)
+        {
+            string selected_Cat_Text = Category_List.SelectedItem.ToString();
+            int selected_Cat_Index = Category_List.SelectedIndex;
+
+            Category_List.Items.Add(selected_Cat_Text);
+            if (Selected_Business_Categories != null)
+            {
+                Selected_Business_Categories.RemoveAt(selected_Cat_Index);
+            }
+            ApplyDataBinding();
+        }
+
+        private void ApplyDataBinding()
+        {
+            Category_List.ItemsSource = null;
+            Category_List.ItemsSource = Business_Categories;
+
+            Selected_Categories_List.ItemsSource = null;
+            Selected_Categories_List.ItemsSource = Selected_Business_Categories;
+        }
+
+        private void Business_Category_Filter_Search(object sender, RoutedEventArgs e)
+        {
+            Business_List.Items.Clear();
+            if (Zipcode_List.SelectedIndex > -1)
+            {
+                using (var connection = new NpgsqlConnection(buildConnectionString()))
+                {
+                    connection.Open();
+                    using (var cmd = new NpgsqlCommand())
+                    {
+                        cmd.Connection = connection;
+                        cmd.CommandText = buildBusinessQuery();
+
+                        try
+                        {
+                            var reader = cmd.ExecuteReader();
+                            while (reader.Read())
+                            {
+                                //BusinessName, Address, City, State, Distane, Stars, NumTips, NumCheckins 
+                                Business_List.Items.Add(new Business()
+                                {
+                                    BusinessName = reader.GetString(0),
+                                    Address = reader.GetString(1),
+                                    City = reader.GetString(2),
+                                    State = reader.GetString(3),
+                                    //TODO: calculate distance to business
+                                    //Distane = 0, //reader.GetFloat(4),
+                                    Latitude = reader.GetFloat(4),
+                                    Longitude = reader.GetFloat(5),
+                                    Stars = reader.GetFloat(6),
+                                    NumTips = reader.GetInt32(7),
+                                    NumCheckins = reader.GetInt32(8)
+                                });
+                            }
+                        }
+                        catch (NpgsqlException ex)
+                        {
+                            Console.WriteLine(ex.Message.ToString());
+                            System.Windows.MessageBox.Show("SQL Error - " + ex.Message.ToString());
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void Update_Business_Checkin(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
