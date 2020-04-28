@@ -29,6 +29,7 @@ namespace Yelp_App
 
         public class Business
         {
+            public string BusinessID { get; set; }
             public string BusinessName { get; set; }
             public string Address { get; set; }
             public string City { get; set; }
@@ -100,13 +101,53 @@ namespace Yelp_App
         {
             //BusinessName, Address, City, State, Stars, NumTips, NumCheckins
             //TODO: Adjust query to get latitude and longitude
-            return "SELECT bName, bStreet, bCity, bState, bLatitude, bLongitude, bNum_Stars, bNum_Tips, bCheckins FROM business WHERE state = '" + State_Select.SelectedItem.ToString() + "' AND '" + City_List.SelectedItem.ToString() + "' AND '" + Zipcode_List.SelectedItem.ToString() + "' ORDER BY city";
+            return "SELECT businessID, bName, bStreet, bCity, bState, bLatitude, bLongitude, bNum_Stars, bNum_Tips, bCheckins FROM business WHERE state = '" + State_Select.SelectedItem.ToString() + "' AND '" + City_List.SelectedItem.ToString() + "' AND '" + Zipcode_List.SelectedItem.ToString() + "' ORDER BY city";
+        }
+
+        private string queryAllCategories()
+        {
+            return "SELECT DISTINCT Category FROM Categories";
+        }
+
+        private void FillCategories()
+        {
+            Business_Categories.Clear();
+            if (Business_Categories.Count > -1)
+            {
+                using (var connection = new NpgsqlConnection(buildConnectionString()))
+                {
+                    connection.Open();
+                    using (var cmd = new NpgsqlCommand())
+                    {
+                        cmd.Connection = connection;
+                        cmd.CommandText = queryAllCategories();
+
+                        try
+                        {
+                            var reader = cmd.ExecuteReader();
+                            while (reader.Read())
+                            {
+                                Business_Categories.Add(reader.GetString(0));//add to city list
+                            }
+                        }
+                        catch (NpgsqlException ex)
+                        {
+                            Console.WriteLine(ex.Message.ToString());
+                            System.Windows.MessageBox.Show("SQL Error - " + ex.Message.ToString());
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
+                    }
+                }
+            }
         }
 
         //TODO: fix category table attributes
         private string buildBusinessQuery()
         {
-            string sql = "SELECT bName, bStreet, bCity, bState, bLatitude, bLongitude, bNum_Stars, bNum_Tips, bCheckins " +
+            string sql = "SELECT businessID, bName, bStreet, bCity, bState, bLatitude, bLongitude, bNum_Stars, bNum_Tips, bCheckins " +
                       "FROM business, category " +
                       "WHERE business.bID = category.bID AND state = '" + State_Select.SelectedItem.ToString() + "' AND bCity = '" + City_List.SelectedItem.ToString() + "' AND bPostal_Code = '" + Zipcode_List.SelectedItem.ToString() + "'";
             for (int i = 0; i < Selected_Business_Categories.Count; ++i)
@@ -124,6 +165,11 @@ namespace Yelp_App
             sql += " ORDER BY city";
 
             return sql;
+        }
+
+        private string queryHours()
+        {
+            return "SELECT hHours FROM Hours_Open WHERE hBusinessID = '" + cur_Business.BusinessID + "' AND hDay = '" + DateTime.Now.Day.ToString() + "'";
         }
 
 
@@ -195,6 +241,12 @@ namespace Yelp_App
             col8.Header = "Total Checkins";
             col8.Width = 100;
             Business_List.Columns.Add(col8);
+
+            DataGridTextColumn col9 = new DataGridTextColumn();
+            col9.Binding = new Binding("businessID");
+            col9.Header = "";
+            col9.Width = 0;
+            Business_List.Columns.Add(col9);
         }
 
         
@@ -334,16 +386,17 @@ namespace Yelp_App
                                 //BusinessName, Address, City, State, Distane, Stars, NumTips, NumCheckins 
                                 Business_List.Items.Add(new Business()
                                 {
-                                    BusinessName = reader.GetString(0),
-                                    Address = reader.GetString(1),
-                                    City = reader.GetString(2),
-                                    State = reader.GetString(3),
+                                    BusinessID = reader.GetString(0),
+                                    BusinessName = reader.GetString(1),
+                                    Address = reader.GetString(2),
+                                    City = reader.GetString(3),
+                                    State = reader.GetString(4),
                                     //TODO: calculate distance to business
-                                    Longitude = reader.GetFloat(5),
-                                    Latitude = reader.GetFloat(4), //reader.GetFloat(4),
-                                    Stars = reader.GetFloat(6),
-                                    NumTips = reader.GetInt32(7),
-                                    NumCheckins = reader.GetInt32(8)
+                                    Longitude = reader.GetFloat(6),
+                                    Latitude = reader.GetFloat(5), //reader.GetFloat(4),
+                                    Stars = reader.GetFloat(7),
+                                    NumTips = reader.GetInt32(8),
+                                    NumCheckins = reader.GetInt32(9)
                                 });
                             }
                         }
@@ -363,7 +416,45 @@ namespace Yelp_App
 
         private void Business_Selected(object sender, SelectionChangedEventArgs e)
         {
+            if (Business_List.SelectedIndex > -1)
+            {
+                cur_Business = Business_List.Items[Business_List.SelectedIndex] as Business;
+                if (cur_Business.BusinessID != null && cur_Business.BusinessID.ToString().CompareTo("") != 0)
+                {
+                    Selected_Business_Name.Content = cur_Business.BusinessName;
+                    Selected_Business_Address.Content = cur_Business.Address;
+                    
+                    using (var connection = new NpgsqlConnection(buildConnectionString()))
+                    {
+                        connection.Open();
+                        using (var cmd = new NpgsqlCommand())
+                        {
+                            cmd.Connection = connection;
+                            cmd.CommandText = queryHours();
+                            try
+                            {
+                                var reader = cmd.ExecuteReader();
+                                while (reader.Read())
+                                {
+                                    Selected_Business_Hours.Content = reader.GetString(0);
+                                }
+                            }
+                            catch (NpgsqlException ex)
+                            {
+                                Console.WriteLine(ex.Message.ToString());
+                                System.Windows.MessageBox.Show("SQL Error - " + ex.Message.ToString());
+                            }
+                            finally
+                            {
+                                connection.Close();
+                            }
 
+
+                        }
+                    }
+
+                }
+            }
         }
 
         //private void Category_List_Selection(object sender, SelectionChangedEventArgs e)
@@ -432,17 +523,18 @@ namespace Yelp_App
                                 //BusinessName, Address, City, State, Distane, Stars, NumTips, NumCheckins 
                                 Business_List.Items.Add(new Business()
                                 {
-                                    BusinessName = reader.GetString(0),
-                                    Address = reader.GetString(1),
-                                    City = reader.GetString(2),
-                                    State = reader.GetString(3),
+                                    BusinessID = reader.GetString(0),
+                                    BusinessName = reader.GetString(1),
+                                    Address = reader.GetString(2),
+                                    City = reader.GetString(3),
+                                    State = reader.GetString(4),
                                     //TODO: calculate distance to business
                                     //Distane = 0, //reader.GetFloat(4),
-                                    Latitude = reader.GetFloat(4),
-                                    Longitude = reader.GetFloat(5),
-                                    Stars = reader.GetFloat(6),
-                                    NumTips = reader.GetInt32(7),
-                                    NumCheckins = reader.GetInt32(8)
+                                    Latitude = reader.GetFloat(5),
+                                    Longitude = reader.GetFloat(6),
+                                    Stars = reader.GetFloat(7),
+                                    NumTips = reader.GetInt32(8),
+                                    NumCheckins = reader.GetInt32(9)
                                 });
                             }
                         }
@@ -462,7 +554,29 @@ namespace Yelp_App
 
         private void Update_Business_Checkin(object sender, RoutedEventArgs e)
         {
+            using (var connection = new NpgsqlConnection(buildConnectionString()))
+            {
+                connection.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = connection;
+                    cmd.CommandText = "INSERT INTO checkin(cBusinessID, cDate, cTime) VALUES ('" + cur_Business.BusinessID + "', '" + DateTime.Now.Day + "', '" + DateTime.Now.TimeOfDay + "')";
+                    try
+                    {
+                        var writer = cmd.ExecuteNonQuery();
+                    }
+                    catch (NpgsqlException ex)
+                    {
+                        Console.WriteLine(ex.Message.ToString());
+                        System.Windows.MessageBox.Show("SQL Error - " + ex.Message.ToString());
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
 
+            }
         }
     }
 }
