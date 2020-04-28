@@ -1,3 +1,34 @@
+-- Distande calculation function found at https://www.geodatasource.com/developers/postgresql
+
+/*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/*::                                                                         :*/
+/*::  This routine calculates the distance between two points (given the     :*/
+/*::  latitude/longitude of those points). It is being used to calculate     :*/
+/*::  the distance between two locations using GeoDataSource(TM) Products    :*/
+/*::                                                                         :*/
+/*::  Definitions:                                                           :*/
+/*::    South latitudes are negative, east longitudes are positive           :*/
+/*::                                                                         :*/
+/*::  Passed to function:                                                    :*/
+/*::    lat1, lon1 = Latitude and Longitude of point 1 (in decimal degrees)  :*/
+/*::    lat2, lon2 = Latitude and Longitude of point 2 (in decimal degrees)  :*/
+/*::    unit = the unit you desire for results                               :*/
+/*::           where: 'M' is statute miles (default)                         :*/
+/*::                  'K' is kilometers                                      :*/
+/*::                  'N' is nautical miles                                  :*/
+/*::  Worldwide cities and other features databases with latitude longitude  :*/
+/*::  are available at https://www.geodatasource.com                         :*/
+/*::                                                                         :*/
+/*::  For enquiries, please contact sales@geodatasource.com                  :*/
+/*::                                                                         :*/
+/*::  Official Web site: https://www.geodatasource.com                       :*/
+/*::                                                                         :*/
+/*::  Thanks to Kirill Bekus for contributing the source code.               :*/
+/*::                                                                         :*/
+/*::         GeoDataSource.com (C) All Rights Reserved 2019                  :*/
+/*::                                                                         :*/
+/*::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+
 CREATE OR REPLACE FUNCTION calculate_distance(lat1 float, lon1 float, lat2 float, lon2 float, units varchar)
 RETURNS float AS $dist$
     DECLARE
