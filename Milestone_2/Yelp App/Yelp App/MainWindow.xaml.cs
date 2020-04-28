@@ -157,12 +157,13 @@ namespace Yelp_App
             GeoCoordinate currentCoordinate = currentLocation.Position.Location;
 
 
-            string sql = "SELECT businessID, bName, bStreet, bCity, bState, calculate_distance('" + currentCoordinate.Latitude + "', '" + currentCoordinate.Longitude + "', bLatitude, bLongitude, M), bNum_Stars, bNum_Tips, bCheckins " +
+            string sql = "SELECT DISTINCT businessID, bName, bStreet, bCity, bState, calculate_distance('" + currentCoordinate.Latitude + "', '" + currentCoordinate.Longitude + "', bLatitude, bLongitude, M), bNum_Stars, bNum_Tips, bCheckins " +
                       "FROM business, category " +
                       "WHERE business.bID = category.bID AND state = '" + State_Select.SelectedItem.ToString() + "' AND bCity = '" + City_List.SelectedItem.ToString() + "' AND bPostal_Code = '" + Zipcode_List.SelectedItem.ToString() +
-                      "' AND NOT EXISTS  { SELECT businessID, bName, bStreet, bCity, bState, calculate_distance('" + currentCoordinate.Latitude + "', '" + currentCoordinate.Longitude + "', bLatitude, bLongitude, M), bNum_Stars, bNum_Tips, bCheckins " +
-                        "FROM business, category " +
-                        "WHERE business.bID = category.bID AND state = '" + State_Select.SelectedItem.ToString() + "' AND bCity = '" + City_List.SelectedItem.ToString() + "' AND bPostal_Code = '" + Zipcode_List.SelectedItem.ToString() + "'";
+                      "' AND NOT EXISTS { " +
+                            "SELECT businessID, bName, bStreet, bCity, bState, calculate_distance('" + currentCoordinate.Latitude + "', '" + currentCoordinate.Longitude + "', bLatitude, bLongitude, M), bNum_Stars, bNum_Tips, bCheckins " +
+                            "FROM business, category " +
+                            "WHERE business.bID = category.bID AND state = '" + State_Select.SelectedItem.ToString() + "' AND bCity = '" + City_List.SelectedItem.ToString() + "' AND bPostal_Code = '" + Zipcode_List.SelectedItem.ToString() + "'";
             for (int i = 0; i < Selected_Business_Categories.Count; ++i)
             {
                 sql = sql + " AND categories <> '" + Selected_Business_Categories[i].ToString() + "'";
