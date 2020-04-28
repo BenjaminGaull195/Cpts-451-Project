@@ -12,8 +12,42 @@
                 <Grid Background="#FFE5E5E5" Margin="0,-2,0,2">
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="300" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="500"/>
                     <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="280" Margin="20,20,0,0" Stroke="Black" VerticalAlignment="Top" Width="214"/>
-                    <Label Content="Current User:" HorizontalAlignment="Left" Height="30" Margin="30,20,0,0" VerticalAlignment="Top" Width="195"/>
+                    <Label Content="Set Current User:" HorizontalAlignment="Left" Height="30" Margin="30,20,0,0" VerticalAlignment="Top" Width="195"/>
                     <TextBox x:Name="User_Search" HorizontalAlignment="Left" Height="20" Margin="30,50,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="195" TextChanged="User_Search_Updated"/>
+                    <Label Content="User Information" HorizontalAlignment="Left" Height="30" Margin="268,20,0,0" VerticalAlignment="Top" Width="195"/>
+                    <ListBox x:Name="UserIdBox" HorizontalAlignment="Left" Height="203" Margin="30,77,0,0" VerticalAlignment="Top" Width="195" SelectionChanged="User_Selected"/>
+                    <Label Content="Stars:" HorizontalAlignment="Left" Height="30" Margin="268,77,0,0" VerticalAlignment="Top" Width="45"/>
+                    <Label Content="Name:" HorizontalAlignment="Left" Height="30" Margin="268,50,0,0" VerticalAlignment="Top" Width="45"/>
+                    <Label Content="Fans:" HorizontalAlignment="Left" Height="30" Margin="396,77,0,0" VerticalAlignment="Top" Width="45"/>
+                    <Label Content="Yelping Since:" HorizontalAlignment="Left" Height="30" Margin="268,107,0,0" VerticalAlignment="Top" Width="102"/>
+                    <Label Content="Votes:" HorizontalAlignment="Left" Height="30" Margin="250,137,0,0" VerticalAlignment="Top" Width="44"/>
+                    <Label Content="Funny:" HorizontalAlignment="Left" Height="30" Margin="308,137,0,0" VerticalAlignment="Top" Width="47"/>
+                    <Label Content="Cool:" HorizontalAlignment="Left" Height="30" Margin="373,137,0,0" VerticalAlignment="Top" Width="47"/>
+                    <Label Content="Useful:" HorizontalAlignment="Left" Height="30" Margin="436,137,0,0" VerticalAlignment="Top" Width="47"/>
+                    <Label Content="Tip Count:" HorizontalAlignment="Left" Height="30" Margin="250,194,0,0" VerticalAlignment="Top" Width="63"/>
+                    <TextBox x:Name="UserInformationName" HorizontalAlignment="Left" Height="20" Margin="318,52,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="165" TextChanged="User_Search_Updated"/>
+                    <TextBox x:Name="UserInformationStars" HorizontalAlignment="Left" Height="20" Margin="318,82,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="52" TextChanged="User_Search_Updated"/>
+                    <TextBox x:Name="UserInformationFans" HorizontalAlignment="Left" Height="20" Margin="436,82,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="47" TextChanged="User_Search_Updated"/>
+                    <TextBox x:Name="UserInformationYelpingSince" HorizontalAlignment="Left" Height="20" Margin="353,111,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="130" TextChanged="User_Search_Updated"/>
+                    <TextBox x:Name="UserInformationYelpingFunny" HorizontalAlignment="Left" Height="20" Margin="311,167,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="44" TextChanged="User_Search_Updated"/>
+                    <TextBox x:Name="UserInformationYelpingCool" HorizontalAlignment="Left" Height="20" Margin="373,167,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="44" TextChanged="User_Search_Updated"/>
+                    <TextBox x:Name="UserInformationYelpingUseful" HorizontalAlignment="Left" Height="20" Margin="436,167,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="44" TextChanged="User_Search_Updated"/>
+                    <TextBox x:Name="UserInformationTipCount" HorizontalAlignment="Left" Height="20" Margin="311,199,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="106" TextChanged="User_Search_Updated"/>
+                    <Label Content="Total Tip Likes:" HorizontalAlignment="Left" Height="30" Margin="250,219,0,0" VerticalAlignment="Top" Width="90"/>
+                    <TextBox x:Name="UserInformationTotalTipLikes" HorizontalAlignment="Left" Height="20" Margin="340,224,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="106" TextChanged="User_Search_Updated"/>
+                    <Label Content="Location:" HorizontalAlignment="Left" Height="30" Margin="250,244,0,0" VerticalAlignment="Top" Width="90"/>
+                    <Label Content="Lat:" HorizontalAlignment="Left" Height="30" Margin="310,256,0,0" VerticalAlignment="Top" Width="90"/>
+                    <Label Content="Long:" HorizontalAlignment="Left" Height="30" Margin="298,283,0,0" VerticalAlignment="Top" Width="90"/>
+                    <TextBox x:Name="UserInformationLat" HorizontalAlignment="Left" Height="20" Margin="335,260,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="106" TextChanged="User_Search_Updated"/>
+                    <TextBox x:Name="UserInformationLong" HorizontalAlignment="Left" Height="20" Margin="335,285,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="106" TextChanged="User_Search_Updated"/>
+                    <DataGrid x:Name="LatestTipsGrid" Margin="515,39,0,0" IsSynchronizedWithCurrentItem="False">
+                        <ScrollBar x:Name="tipsScrollBar" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    </DataGrid>
+                    <DataGrid x:Name="FriendsBox" Margin="10,338,1176,0">
+                        <ScrollBar x:Name="friendsscrollBar" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    </DataGrid>
+                    <Label Content="Latest Tips of My Friends:" HorizontalAlignment="Left" Height="30" Margin="515,9,0,0" VerticalAlignment="Top" Width="195"/>
+                    <Label Content=" Friends:" HorizontalAlignment="Left" Height="30" Margin="10,310,0,0" VerticalAlignment="Top" Width="195"/>
 
                 </Grid>
             </TabItem>

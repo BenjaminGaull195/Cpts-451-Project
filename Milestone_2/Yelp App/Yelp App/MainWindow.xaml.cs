@@ -25,7 +25,10 @@ namespace Yelp_App
     {
         public class User
         {
-
+            public string userName { get; set; }
+            public double stars { get; set; }
+            public string yeslpingSince { get; set; }
+            public int totalTipLikes { get; set; }
         }
 
         public class Business
@@ -74,8 +77,8 @@ namespace Yelp_App
             init_BusinessList();
         }
 
-        private string DB = "milestone2";
-        private string PW = "Spartan-195";
+        private string DB = "milestone3";
+        private string PW = "peanutbutter12";
         private Business cur_Business;
         private string cur_Category;
         private ArrayList Business_Categories = new ArrayList();
@@ -149,6 +152,21 @@ namespace Yelp_App
             }
         }
 
+        private string queryUserId()
+        {
+            return "SELECT userID FROM yelpUser WHERE uName = '" + User_Search.Text.ToString() + "'";
+        }
+
+        private string queryUser(string UserId)
+        {
+            return "SELECT * FROM yelpUser WHERE userID = '" + UserId + "'";
+        }
+
+        private string queryFriends(String Item)
+        {
+            return "SELECT * FROM Friends WHERE userID1 = '" + Item + "'";
+        }
+
         //TODO: fix category table attributes
         private string buildBusinessQuery()
         {
@@ -184,17 +202,67 @@ namespace Yelp_App
         //User Tab Init
         private void init_UserList()
         {
-             
+            
         }
 
         private void init_UserFriends()
         {
+            DataGridTextColumn col1 = new DataGridTextColumn();
+            col1.Binding = new Binding("userName");
+            col1.Header = "Name";
+            col1.Width = 125;
+            FriendsBox.Columns.Add(col1);
 
+            DataGridTextColumn col2 = new DataGridTextColumn();
+            col2.Binding = new Binding("totalTipLikes");
+            col2.Header = "Total Likes";
+            col2.Width = 125;
+            FriendsBox.Columns.Add(col2);
+
+            DataGridTextColumn col3 = new DataGridTextColumn();
+            col3.Binding = new Binding("stars");
+            col3.Header = "Avg Stars";
+            col3.Width = 100;
+            FriendsBox.Columns.Add(col3);
+
+            DataGridTextColumn col4 = new DataGridTextColumn();
+            col4.Binding = new Binding("yeslpingSince");
+            col4.Header = "YelpingSince";
+            col4.Width = 145;
+            FriendsBox.Columns.Add(col4);
         }
 
         private void init_FriendTips()
         {
+            DataGridTextColumn col1 = new DataGridTextColumn();
+            col1.Binding = new Binding("Username");
+            col1.Header = "User Name";
+            col1.Width = 100;
+            LatestTipsGrid.Columns.Add(col1);
 
+            DataGridTextColumn col2 = new DataGridTextColumn();
+            col2.Binding = new Binding("Bussiness");
+            col2.Header = "Bussiness";
+            col2.Width = 100;
+            LatestTipsGrid.Columns.Add(col2);
+
+            DataGridTextColumn col3 = new DataGridTextColumn();
+            col3.Binding = new Binding("City");
+            col3.Header = "City";
+            col3.Width = 75;
+            LatestTipsGrid.Columns.Add(col3);
+
+            DataGridTextColumn col4 = new DataGridTextColumn();
+            col4.Binding = new Binding("Text");
+            col4.Header = "Text";
+            col4.Width = 821;
+            LatestTipsGrid.Columns.Add(col4);
+
+            DataGridTextColumn col5 = new DataGridTextColumn();
+            col5.Binding = new Binding("Date");
+            col5.Header = "Date";
+            col5.Width = 75;
+            LatestTipsGrid.Columns.Add(col5);
         }
 
         //Business Tab Init
@@ -296,10 +364,170 @@ namespace Yelp_App
         //User Tab
         private void User_Search_Updated(object sender, TextChangedEventArgs e)
         {
+            UserIdBox.Items.Clear();
+            using (var connection = new NpgsqlConnection(buildConnectionString()))
+            {
+                connection.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = connection;
+                    cmd.CommandText = queryUserId();
 
+                    try
+                    {
+                        var reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            UserIdBox.Items.Add(reader.GetString(0));//add to city list
+                        }
+                    }
+                    catch (NpgsqlException ex)
+                    {
+                        Console.WriteLine(ex.Message.ToString());
+                        System.Windows.MessageBox.Show("SQL Error - " + ex.Message.ToString());
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                }
+            }
         }
 
 
+        private void User_Selected(object sender, SelectionChangedEventArgs e)
+        {
+            int index = UserIdBox.SelectedIndex;
+            string item = "";
+            if (index > -1)
+            {
+               item = UserIdBox.SelectedItem.ToString();
+            }
+            
+            populateUserInformation();
+            populateFriendsTable(index, item);
+        }
+
+        private void populateUserInformation()
+        {
+            if (UserIdBox.SelectedIndex > -1)
+            {
+                using (var connection = new NpgsqlConnection(buildConnectionString()))
+                {
+                    connection.Open();
+                    using (var cmd = new NpgsqlCommand())
+                    {
+                        cmd.Connection = connection;
+                        cmd.CommandText = queryUser(UserIdBox.SelectedItem.ToString());
+
+                        try
+                        {
+                            var reader = cmd.ExecuteReader();
+                            while (reader.Read())
+                            {
+                                UserInformationName.Text = reader.GetString(1);
+                                UserInformationFans.Text = reader.GetInt32(2).ToString();
+                                UserInformationLat.Text = reader.GetDouble(9).ToString();
+                                UserInformationLong.Text = reader.GetDouble(10).ToString();
+                                UserInformationStars.Text = reader.GetDouble(8).ToString();
+                                UserInformationTipCount.Text = reader.GetInt32(6).ToString();
+                                //Problem with the database
+                                //UserInformationTotalTipLikes.Text = reader.GetInt32(7).ToString();
+                                UserInformationTotalTipLikes.Text = "DataBase Problem";
+                                UserInformationYelpingCool.Text = reader.GetInt32(4).ToString();
+                                UserInformationYelpingFunny.Text = reader.GetInt32(3).ToString();
+                                UserInformationYelpingUseful.Text = reader.GetInt32(5).ToString();
+                                UserInformationYelpingSince.Text = reader.GetDate(11).ToString();
+
+                            }
+                        }
+                        catch (NpgsqlException ex)
+                        {
+                            Console.WriteLine(ex.Message.ToString());
+                            System.Windows.MessageBox.Show("SQL Error - " + ex.Message.ToString());
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void populateFriendsTable(int selectedIndex, string item)
+        {
+            FriendsBox.Items.Clear();
+            List<string> friends = new List<string>();
+            if (selectedIndex > -1)
+            {
+                using (var connection = new NpgsqlConnection(buildConnectionString()))
+                {
+                    connection.Open();
+                    using (var cmd = new NpgsqlCommand())
+                    {
+                        cmd.Connection = connection;
+                        cmd.CommandText = queryFriends(item);
+
+                        try
+                        {
+                            var reader = cmd.ExecuteReader();
+                            while (reader.Read())
+                            {
+                                friends.Add(reader.GetString(1));
+                            }
+                        }
+                        catch (NpgsqlException ex)
+                        {
+                            Console.WriteLine(ex.Message.ToString());
+                            System.Windows.MessageBox.Show("SQL Error - " + ex.Message.ToString());
+                        }
+                        finally
+                        {
+                            connection.Close();
+                        }
+                    }
+                }
+                foreach(string friend in friends)
+                {
+                    using (var connection = new NpgsqlConnection(buildConnectionString()))
+                    {
+                        connection.Open();
+                        using (var cmd = new NpgsqlCommand())
+                        {
+                            cmd.Connection = connection;
+                            cmd.CommandText = queryUser(friend);
+
+                            try
+                            {
+                                var reader = cmd.ExecuteReader();
+                                while (reader.Read())
+                                {
+                                    FriendsBox.Items.Add(new User()
+                                    {
+                                        userName = reader.GetString(1),
+                                        stars = reader.GetDouble(8),
+                                        yeslpingSince = reader.GetDate(11).ToString(),
+                                        //totalTipLikes = reader.GetInt32(7)
+                                        totalTipLikes = 0
+                                    });
+
+                                }
+                            }
+                            catch (NpgsqlException ex)
+                            {
+                                Console.WriteLine(ex.Message.ToString());
+                                System.Windows.MessageBox.Show("SQL Error - " + ex.Message.ToString());
+                            }
+                            finally
+                            {
+                                connection.Close();
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         //Business Tab
         private void State_Selected(object sender, SelectionChangedEventArgs e)
@@ -463,15 +691,15 @@ namespace Yelp_App
             }
         }
 
-        //private void Category_List_Selection(object sender, SelectionChangedEventArgs e)
-        //{
+        private void Category_List_Selection(object sender, SelectionChangedEventArgs e)
+        {
             
-        //}
+        }
 
-        //private void Selected_Category_Update(object sender, SelectionChangedEventArgs e)
-        //{
+        private void Selected_Category_Update(object sender, SelectionChangedEventArgs e)
+        {
         //    selected_Category = new Category() { category_name = Category_List.SelectedItem.ToString() };
-        //}
+        }
 
         private void Category_Add_Click(object sender, RoutedEventArgs e)
         {
@@ -582,5 +810,7 @@ namespace Yelp_App
 
             }
         }
+
+ 
     }
 }
